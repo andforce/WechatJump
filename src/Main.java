@@ -1,16 +1,11 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
 
-public class JumpFrame extends JFrame{
+public class Main extends JFrame{
 
 
     JumpViewPanel jumpPanel = null;
 
-    public JumpFrame() {
+    public Main() {
         jumpPanel = new JumpViewPanel(ShellExe.refreshImage());
 
         this.add(jumpPanel);
@@ -22,7 +17,7 @@ public class JumpFrame extends JFrame{
 
     public static void main(String[] args) {
 
-        JumpFrame jumpFrame = new JumpFrame();
+        Main main = new Main();
 
 
     }

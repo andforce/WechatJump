@@ -15,7 +15,8 @@ public class JumpViewPanel extends JPanel {
 
     double C = 1.56f;
     Image mImage = null;
-
+    Dimension screenSize =  Toolkit.getDefaultToolkit().getScreenSize();
+    Dimension devicesDimension = ShellExe.devicesDimension();
 
     public JumpViewPanel(Image i) {
 
@@ -53,18 +54,17 @@ public class JumpViewPanel extends JPanel {
                     int x = Math.abs(startPoint.x - endPoint.x);
                     int y = Math.abs(startPoint.y - endPoint.y);
 
-                    double jumpDistance = Math.sqrt(x * x + y * y) * C;
+                    //float scale = screenSize.height / devicesDimension.height;
+                    double jumpDistance = Math.sqrt(x * x + y * y) * C * devicesDimension.height / screenSize.height;
 
                     System.out.println("x:" + x + " y:" + y + " dis:" + jumpDistance);
-
-                    ShellExe exe = new ShellExe();
 
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
 
 
-                            exe.exeCmd("./j.sh " + (int) +jumpDistance);
+                            ShellExe.runProcess("adb shell input swipe 100 200 100 100 " + (int) +jumpDistance);
 
                             try {
                                 Thread.sleep(1000);
@@ -114,7 +114,7 @@ public class JumpViewPanel extends JPanel {
         super.paint(g);
 
         if (mImage != null) {
-            g.drawImage(mImage, 0, 0, 1080, 1920, null);
+            g.drawImage(mImage, 0, 0, devicesDimension.width * screenSize.height / devicesDimension.height, screenSize.height, null);
         }
 
         if (startPoint != null) {
